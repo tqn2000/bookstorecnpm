@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\testproduct;
 
@@ -18,6 +19,8 @@ use App\Models\testproduct;
 */
 
 Route::get('/',[MainPageController::class, 'index']);
+Route::get('/products/{productID}',[ProductController::class, 'getproduct']);
+
 
 Route::get('/checkDB', function ()
 {

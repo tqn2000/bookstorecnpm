@@ -119,7 +119,7 @@
                                         <img src="{{$product -> Url}} " alt=" ">
                                     </div>
                                     <div class="pro-infor ">
-                                        <a href=" " title="{{$product->ProductName}} " class="pro-name ">
+                                        <a href="{{URL::to('/products/'.$product->ID)}} " title="{{$product->ProductName}} " class="pro-name ">
                                             <p>{{$product->ProductName}}</p>
                                         </a>
                                         <p class="price d-flex justify-content-center ">
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="ban-quick-view">
+                <<div class="ban-quick-view">
                     <div class="mode-view">
                         <div class="overlay">
                         </div>
@@ -172,7 +172,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div> 
                 <div class="featured-product ">
                     <div class="d-flex justify-content-between title-feature mb-2 ">
                         <h5>SẢN PHẨM NỔI BẬT</h5>

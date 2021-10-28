@@ -10,12 +10,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('public/User/CSS/home.css')}}">
+    <link rel="stylesheet" href="{{asset('/public/User/CSS/home.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{asset('public/User/fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/public/User/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" href="{{asset('public/User/CSS/reponsive.css')}}">
+    <link rel="stylesheet" href="{{asset('/public/User/CSS/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('/public/User/CSS/font.css')}}">
+    @yield('detailproductcss')
+    {{-- <style>
+        @font-face {
+    font-family: Roboto Condensed;
+    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf");
+  }
+  
+  @font-face {
+    font-family: Roboto-Italic;
+    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-LightItalic.ttf");
+  }
+  body {
+  font-family: Roboto Condensed !important;
+}
+header {
+  font-family: Roboto-Italic !important;
+}
+.category-respon {
+  font-family: Roboto-Italic !important;
+}
+.home-slider {
+  font-family: Roboto-Italic !important;
+}
+.ban-book {
+  font-family: Roboto-Italic !important;
+}
+.btn-custom-action button {
+  font-family: Roboto-Italic !important;
+}
+.sold-price {
+  font-family: Roboto-Italic !important;
+}
+.more-link {
+  font-family: Roboto-Italic !important;
+}
+
+    </style> --}}
 </head>
 
 <body>
@@ -210,6 +248,7 @@
                 <!-- show menu when responsiving-->
             </header>
             @yield('content')
+            @yield('detailproduct')
             <footer>
                 <div class="site-footer ">
                     <div class="container-fluid p-0 ">
@@ -341,6 +380,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj " crossorigin="anonymous "></script>
     <script type="text/javascript " src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js "></script>
     <script src="{{asset('public/User/JS/home.js')}}"></script>
+    @yield('detailproductjs')
 </body>
 
 </html>
