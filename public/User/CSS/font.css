@@ -1,9 +1,9 @@
 @font-face {
     font-family: Roboto Condensed;
-    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf");
+    src: url("{{asset('public/User/FONTS/Roboto_Condensed/RobotoCondensed-Italic.ttf')}}");
   }
   
-  @font-face {
+  /* @font-face {
     font-family: Roboto-Italic;
-    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-LightItalic.ttf");
-  }
+    src: url("{{asset(''../FONTS/Roboto_Condensed/RobotoCondensed-Italic.ttf)}}");
+  } */

@@ -11,10 +11,7 @@ $(".banner").slick({
     nextArrow: '<button class="slick-next slick-arrow " aria-label="Next " type="button " style=" "><i class="bi bi-chevron-right "></i></button>',
 });
 
-$(".ls-new-pro").slick({
-    prevArrow: '<button class="slick-prev slick-arrow " aria-label="Previous " type="button " style=" "><i class="bi bi-chevron-left "></i></button>',
-    nextArrow: '<button class="slick-next slick-arrow " aria-label="Next " type="button " style=" "><i class="bi bi-chevron-right "></i></button>',
-});
+
 
 function hideClass(name, show, hide) {
     $(name).removeClass(show);
@@ -48,9 +45,11 @@ backToTop();
 function qucikView() {
     $(".close-quick-view").on("click", function() {
         hide();
+        $(".number-value").children("input").val(1);
     });
     $(".overlay").on("click", function() {
         hide();
+        $(".number-value").children("input").val(1);
     });
 
     function hide() {
@@ -66,18 +65,21 @@ function viewModel(id) {
     (sPrice = $("#salprice-pro-" + id).text()),
     (iPrice = $("#initial-price-" + id).text());
     $(".quick-view-pro").attr("data", id);
-    cate= $(".item-sell").attr(data);
-    console.log(cate);
     $(".quick-view-img").children("img").attr("src", imSrc);
+     cate= $(".item-sell").attr("data");
+    $('#link-detail-pro').attr("data-link",  `/BookStore/products/${cate}/${id}`);
     $(".title-pro").children("h5").text(pName);
     $(".quick-sold-price .sprice").text(sPrice);
     $(".quick-initial-price .iprice").text(iPrice);
-
     showClass(".overlay", "show-overlay", "close-overlay");
     showClass(".quick-view-pro", "show-qview", "hide-qview ");
     showClass(".ban-quick-view", "show-ban-qview", "hide-ban-qview");
 }
-
+$('#link-detail-pro').click(function (e) { 
+    e.preventDefault();
+    link=$(this).attr("data-link")
+    window.location.href=`${link}`
+});
 //show nav3 and hidden nav3 in tablet and mobile
 (() => {
     $(".btn-nav-mobile").on("click", function() {

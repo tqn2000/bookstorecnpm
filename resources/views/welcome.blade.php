@@ -13,20 +13,23 @@
     <link rel="stylesheet" href="{{asset('/public/User/CSS/home.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="{{asset('/public/User/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" href="{{asset('/public/User/CSS/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('/public/User/CSS/home1.css')}}">
     <link rel="stylesheet" href="{{asset('/public/User/CSS/font.css')}}">
-    @yield('detailproductcss')
-    {{-- <style>
+    
+    <style>
         @font-face {
     font-family: Roboto Condensed;
-    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-BoldItalic.ttf");
+    src: url("{{asset('/public/User/FONTS/Roboto_Condensed/RobotoCondensed-Italic.ttf')}}");
   }
   
   @font-face {
     font-family: Roboto-Italic;
-    src: url("/public/User/FONTS/Roboto_Condensed/RobotoCondensed-LightItalic.ttf");
+    src: url("{{asset('/public/User/FONTS/Roboto_Condensed/RobotoCondensed-Italic.ttf')}}");
   }
   body {
   font-family: Roboto Condensed !important;
@@ -53,7 +56,7 @@ header {
   font-family: Roboto-Italic !important;
 }
 
-    </style> --}}
+    </style>
 </head>
 
 <body>
@@ -61,7 +64,7 @@ header {
         <!-- nav-3 when responsive -->
         <div class="list-menu-res">
             <ul class="nav-ul d-block list-unstyled">
-                <li><a href="">Trang chủ</a></li>
+                <li><a href="{{URL::to('/home')}}">Trang chủ</a></li>
                 <li class="has-children">
                     <a class="link-pro"><span>Sản phẩm <i class="fas fa-caret-right"></i></span></a>
                 </li>
@@ -177,8 +180,8 @@ header {
                             <a href=""><span>Đăng ký</span></a>
                             <a href=""><span>Đăng Nhập</span></a>
                             <div class="cart">
-                                <a href="">
-                                    <p><i class="fas fa-shopping-cart"></i> <span>Giỏ hàng : </span>0</p>
+                                <a href="/BookStore/cart">
+                                    <p><i class="fas fa-shopping-cart"></i> <span>Giỏ hàng : </span><span class="ajax-cart-quantity">0</span></p>
                                 </a>
                             </div>
                         </div>
@@ -212,19 +215,19 @@ header {
                     <div class="navbar">
                         <div class="nav-list">
                             <ul class="nav-ul d-flex list-unstyled">
-                                <li><a href="">Trang chủ</a></li>
+                                <li><a href="{{URL::to('/home')}}">Trang chủ</a></li>
                                 <li>
-                                    <a href="" class="link-pro"><span>Sản phẩm <i class="fas fa-sort-down"></i></span></a>
+                                    <a href="/BookStore/all/8888" class="link-pro"><span>Sản phẩm <i class="fas fa-sort-down"></i></span></a>
                                     <ul class="menu-parent" role="menu">
                                         @foreach($categorys as $category )
                                     <li class="list-menu">
-                                            <a href="" title="{{ $category-> Name }}" class="has-submenu submenu-1">{{ $category-> Name }}<i class="fas fa-caret-right"></i></a>
+                                            <a href="/BookStore/all/{{ $category-> ID}}" title="{{ $category-> Name }}" class="has-submenu submenu-1">{{ $category-> Name }}<i class="fas fa-caret-right"></i></a>
                                             <ul class="menu3 menu3-1 sm-nowrap">
                                                 @if($category-> CategoryChild)
                                                 @foreach( $category-> CategoryChild as $item)
                                     
                                                 <li>
-                                                    <a href="" title="{{ $item-> Name }} ">{{ $item-> Name }}</a>
+                                                    <a href="/BookStore/all/{{ $item-> ID}}" title="{{ $item-> Name }} ">{{ $item-> Name }}</a>
                                                 </li>
                                                 @endforeach
                                                 @endif
@@ -234,9 +237,9 @@ header {
 
                                     </ul>
                                 </li>
-                                <li><a href=" ">Giới thiệu</a></li>
-                                <li><a href=" ">Blogs</a></li>
-                                <li><a href=" ">Liên hệ</a></li>
+                                <li><a href="/BookStore/intro ">Giới thiệu</a></li>
+                                <li><a href="/BookStore/blogs ">Blogs</a></li>
+                                <li><a href="/BookStore/contact ">Liên hệ</a></li>
                             </ul>
                         </div>
                         <div class="search-inp ">
@@ -249,6 +252,17 @@ header {
             </header>
             @yield('content')
             @yield('detailproduct')
+            @yield('searchproduct')
+            @yield('productlist')
+            @yield('contact')
+            @yield('cart')
+            @yield('pay')
+            @yield('intro')
+            @yield('policy')
+            @yield('bm')
+            @yield('dk')
+            @yield('blogs')
+            @yield('blogdetail')
             <footer>
                 <div class="site-footer ">
                     <div class="container-fluid p-0 ">
@@ -302,29 +316,28 @@ header {
                             <div class="col-lg-2 ">
                                 <h5>Liên Kết</h5>
                                 <ul>
-                                    <li><a href=" "><span>Sản phẩm khuyến mãi</span></a></li>
-                                    <li><a href=" "><span>Sản phẩm nổi bật</span></a></li>
-                                    <li><a href=" "><span>Tất cả sản phẩm</span></a></li>
+                                    
+                                    <li><a href="/BookStore/all/8888 "><span>Tất cả sản phẩm</span></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-2 ">
                                 <h5>Hỗ trợ</h5>
                                 <ul>
-                                    <li><a href=" "><span>Trang chủ</span></a></li>
-                                    <li><a href=" "><span>Sản phẩm</span></a></li>
-                                    <li><a href=" "><span>Giới thiệu</span></a></li>
+                                    <li><a href="/BookStore/home "><span>Trang chủ</span></a></li>
+                                    <li><a href="/BookStore/all/8888 "><span>Sản phẩm</span></a></li>
+                                    <li><a href="/BookStore/intro "><span>Giới thiệu</span></a></li>
                                     <li><a href=" "><span>Blogs</span></a></li>
-                                    <li><a href=" "><span>Liên hệ</span></a></li>
+                                    <li><a href="/BookStore/contact "><span>Liên hệ</span></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-2 ">
                                 <h5>Dịch vụ</h5>
                                 <ul>
-                                    <li><a href=" "><span>Tìm kiếm</span></a></li>
-                                    <li><a href=" "><span>Giới thiệu</span></a></li>
-                                    <li><a href=" "><span>Chính sách đổi trả</span></a></li>
-                                    <li><a href=" "><span>Chính sách bảo mật</span></a></li>
-                                    <li><a href=" "><span>Điều khoản dịch vụ</span></a></li>
+                                   
+                                    <li><a href="/BookStore/intro "><span>Giới thiệu</span></a></li>
+                                    <li><a href="/BookStore/policy "><span>Chính sách đổi trả</span></a></li>
+                                    <li><a href="/BookStore/bm "><span>Chính sách bảo mật</span></a></li>
+                                    <li><a href="/BookStore/dk "><span>Điều khoản dịch vụ</span></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-3 connect-us mb-sm-2">
@@ -348,11 +361,10 @@ header {
                 </div>
                 <div class="site-info pt-4 pb-4 ">
                     <div class="link-copy ">
-                        <a href=" ">Tìm kiếm</a><span> | </span>
-                        <a href=" ">Giới thiệu</a><span> | </span>
-                        <a href=" ">Chính sách đổi trả</a><span> | </span>
-                        <a href=" ">Chính sách bảo mật</a><span> | </span>
-                        <a href=" ">Điều khoản dịch vụ</a>
+                        <a href="/BookStore/intro ">Giới thiệu</a><span> | </span>
+                        <a href=" /BookStore/policy">Chính sách đổi trả</a><span> | </span>
+                        <a href=" /BookStore/bm ">Chính sách bảo mật</a><span> | </span>
+                        <a href=" /BookStore/dk ">Điều khoản dịch vụ</a>
                     </div>
                     <div class="cp-right ">
                         <span>Copyright © 2021 Nhà Sách Trí Đức.</span>
@@ -379,8 +391,17 @@ header {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js " integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin=" anonymous " referrerpolicy="no-referrer "></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js " integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj " crossorigin="anonymous "></script>
     <script type="text/javascript " src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js "></script>
-    <script src="{{asset('public/User/JS/home.js')}}"></script>
-    @yield('detailproductjs')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.js" integrity="sha512-h1Xtd9Xz5HglyzafV0MQ2j9RU30SbD+QdVRJXxdIdMixcGLiljJqtuu1W8Ig20IzYI8lskIKEppDJbF/zkdRtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('public/User/JS/home1.js')}}"></script>
+    <script src="{{asset('public/User/JS/input1.js')}}"></script>
+    
+    <script src="{{asset('public/User/JS/pay.js')}}"></script>
+    <script src="{{asset('public/User/JS/main.js')}}"></script>
+   
+    @yield('productjs')
 </body>
 
 </html>

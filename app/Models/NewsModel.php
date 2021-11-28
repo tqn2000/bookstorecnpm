@@ -4,13 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class NewsModel extends Model
 {
-
-    protected $table= 'product';
-  
-    
-
+    protected $table='news';
 }

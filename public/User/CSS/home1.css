@@ -2103,4 +2103,15 @@ select.error:focus {
     font-size: 2rem;
     padding-bottom: 5px;
 }
+/* loading  */
 
+.cate-left  a{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.list-menu a{
+    padding-left: 15px !important;
+}
+.list-menu ul a{
+    padding-left: 18px !important;
+}

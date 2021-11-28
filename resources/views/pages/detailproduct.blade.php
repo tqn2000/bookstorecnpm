@@ -1,39 +1,43 @@
-@section('detailproductcss')
-<link rel="stylesheet" href="{{asset('/public/User/CSS/detailproduct.css')}}">
-@endsection
+
 @extends('welcome')
 @section('detailproduct')
 
 <div class="site-main">
  
     <!-- dẫn trang -->
+    @foreach ($products as $product )
     <div class="link-page">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Library</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Data</li>
+              <li class="breadcrumb-item"><a href="/BookStore/home">Trang chủ</a></li>
+              <li class="breadcrumb-item"><a href="/BookStore/all/8888">Sản phẩm</a></li>
+              <li style="color: rgb(168, 149, 149)" class="breadcrumb-item active" aria-current="page">{{$product->ProductName}}</li>
             </ol>
           </nav>
     </div>
+    @endforeach
     <!-- chi tiết sản phẩm -->
     <div class="info-detail-product">
         <div class="container-fluid">
             <div class="row">
+                @foreach ($products as $product )  
+                
                 <div class="col-lg-4 image-pro-detail ps-0 col-md-12 pe-md-0 pe-0">
-                    <img src="{{$product->Url}}" alt="">
-                    <span class="sales-dis"><small>Sale</small> 10%</span>
+                    <img id="pro-image-{{$product->ID}}" src="{{$product->Url}}" alt="">
+                    {{-- <span class="sales-dis"><small>Sale</small> 10%</span> --}}
                 </div>
                 <div class="col-lg-5 content-info-detail col-md-12">
-                    <h3>{{$product->ProductName}}</h3>
+                    <h3 id="pro-name-{{$product->ID}}">{{$product->ProductName}}</h3>
                     <div class="price-pro d-flex align-items-end">
-                        <span class="saled-price me-2"><span>{{$product->PriceProduct}}</span><ins>đ</ins></span>
-                        <del class="initial-pro-price"><span>{{round((($product->PriceProduct)*10)/9)}}</span><ins>đ</ins></del>
+                        <span class="saled-price me-2"><span id="salprice-pro-{{$product->ID}}">{{$product->PriceProduct}}</span><ins>đ</ins></span>
+                        {{-- <del class="initial-pro-price"><span>{{round((($product->PriceProduct)*10)/9)}}</span><ins>đ</ins></del> --}}
                     </div>
                     <p class="content-pro mb-0">
                         {{$product->Description}}
+                        
                     </p>
-                    <div class="number-guest-book d-flex pt-4 pb-4">
+                   
+                    <div class="number-guest-book d-flex pt-4 pb-4" id="number-book-{{$product->ID}}">
                         <button id="btn-decrease"><span>-</span></button>
                         <input type="number" value="1" min="1">
                         <button id="btn-increase"><span>+</span></button>
@@ -42,7 +46,7 @@
                         <div class="container-fluid ps-3 pe-3">
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
-                                    <button class="btn-cart-pro w-100 set-cart" onclick="setCart()" id="sp01">
+                                    <button class="btn-cart-pro w-100 set-cart" onclick="setCart('{{$product->ID}}')">
                                         <i class="fas fa-shopping-cart"></i>
                                         <span>Thêm vào giỏ</span>
                                     </button>
@@ -56,6 +60,7 @@
                             </div>
                         </div>
                     </div>
+                    @endforeach
                     <div class="tag d-flex">
                         <span>Tags:</span>
                         <ul>
@@ -189,7 +194,10 @@
                             <span class="wrapper-title">Mô tả sản phẩm</span>
                         </div>
                         <div class="pro-info-decription">
-                            <p>   {{$product->Description}}</p>
+                            @foreach ($products as $product )
+                            <p>   {{$product->Description}}</p>  
+                            @endforeach
+                           
                         </div>
                     </div>
                     <div class="another-pros text-center mt-4">
@@ -197,6 +205,7 @@
                         <div class="lst-another-pros">
                             <div class="container-fluid p-0">
                                 <div class="row list-highlight-pro gx-3">
+                                    @foreach ($relateproducts as $relateproduct  )
                                     <div class="col-md-3 mb-3 h-auto col-sm-6">
                                         <div class="item-sell" id="1">
                                             <p class="d-flex justify-content-center "><span class="discount ">-10%</span></p>
@@ -205,82 +214,20 @@
                                                 <button class="btn-cart d-flex "><span>+ Thêm vào giỏ</span><i class="bi bi-cart3 ps-1 "></i></button>
                                             </div>
                                             <div class="img-hot-book ">
-                                                <img src="https://product.hstatic.net/200000290933/product/77c700535cfa13f8a7d7012f00e01257_d94acd7e8b0540d291d397e58ce818e6_large.jpg" alt="">
+                                                <img src="{{$relateproduct->Url}}" alt="">
                                             </div>
                                             <div class="pro-infor ">
-                                                <a href=" " title="BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG " class="pro-name ">
-                                                    <p>BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG</p>
+                                                <a href=" {{ $relateproduct->ID}}" title="{{$relateproduct->ProductName}} " class="pro-name ">
+                                                    <p>{{$relateproduct->ProductName}}</p>
                                                 </a>
                                                 <p class="price d-flex justify-content-center ">
-                                                    <span class="sold-price ">61.200<span>đ</span></span>
-                                                    <del class="initial-price ">68.000<span>đ</span></del>
+                                                    <span class="sold-price ">{{$relateproduct->PriceProduct}}<span>đ</span></span>
+                                                    
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 b-3 col-sm-6">
-                                        <div class="item-sell ">
-                                            <p class="d-flex justify-content-center "><span class="discount ">-10%</span></p>
-                                            <div class="btn-custom-action d-flex justify-content-between ">
-                                                <button class="btn-quick-view "><i class="far fa-chart-bar "></i><span>Xem nhanh</span></button>
-                                                <button class="btn-cart d-flex "><span>+ Thêm vào giỏ</span><i class="bi bi-cart3 ps-1 "></i></button>
-                                            </div>
-                                            <div class="img-hot-book ">
-                                                <img src="https://product.hstatic.net/200000290933/product/z2539880070382_da52894a5ee431f7217caab2b078b3d0_067327ff13614828972efe780b904caa_large.jpg " alt=" ">
-                                            </div>
-                                            <div class="pro-infor ">
-                                                <a href=" " title="BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG " class="pro-name ">
-                                                    <p>BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG</p>
-                                                </a>
-                                                <p class="price d-flex justify-content-center ">
-                                                    <span class="sold-price ">61.200<span>đ</span></span>
-                                                    <del class="initial-price ">68.000<span>đ</span></del>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 b-3 col-sm-6">
-                                        <div class="item-sell ">
-                                            <p class="d-flex justify-content-center "><span class="discount ">-10%</span></p>
-                                            <div class="btn-custom-action d-flex justify-content-between ">
-                                                <button class="btn-quick-view "><i class="far fa-chart-bar "></i><span>Xem nhanh</span></button>
-                                                <button class="btn-cart d-flex "><span>+ Thêm vào giỏ</span><i class="bi bi-cart3 ps-1 "></i></button>
-                                            </div>
-                                            <div class="img-hot-book ">
-                                                <img src="https://product.hstatic.net/200000290933/product/z2539880070382_da52894a5ee431f7217caab2b078b3d0_067327ff13614828972efe780b904caa_large.jpg " alt=" ">
-                                            </div>
-                                            <div class="pro-infor ">
-                                                <a href=" " title="BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG " class="pro-name ">
-                                                    <p>BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG</p>
-                                                </a>
-                                                <p class="price d-flex justify-content-center ">
-                                                    <span class="sold-price ">61.200<span>đ</span></span>
-                                                    <del class="initial-price ">68.000<span>đ</span></del>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 b-3 col-sm-6">
-                                        <div class="item-sell ">
-                                            <p class="d-flex justify-content-center "><span class="discount ">-10%</span></p>
-                                            <div class="btn-custom-action d-flex justify-content-between ">
-                                                <button class="btn-quick-view "><i class="far fa-chart-bar "></i><span>Xem nhanh</span></button>
-                                                <button class="btn-cart d-flex "><span>+ Thêm vào giỏ</span><i class="bi bi-cart3 ps-1 "></i></button>
-                                            </div>
-                                            <div class="img-hot-book ">
-                                                <img src="https://product.hstatic.net/200000290933/product/z2539880070382_da52894a5ee431f7217caab2b078b3d0_067327ff13614828972efe780b904caa_large.jpg " alt=" ">
-                                            </div>
-                                            <div class="pro-infor ">
-                                                <a href=" " title="BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG " class="pro-name ">
-                                                    <p>BỘ SÁCH KỸ NĂNG SỐNG DÀNH CHO TRẺ - MÌNH KHÔNG ĐỂ MẸ PHẢI LO LẮNG</p>
-                                                </a>
-                                                <p class="price d-flex justify-content-center ">
-                                                    <span class="sold-price ">61.200<span>đ</span></span>
-                                                    <del class="initial-price ">68.000<span>đ</span></del>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -321,7 +268,7 @@
                             <div>
                                 <button class="btn-add-cart"><i class="fas fa-cart-plus"></i>THÊM VÀO GIỎ</button>
                                 <span class="ps-2">hoặc</span>
-                                <a href="" style="text-decoration: none; color: #E05543;font-weight: bold;">Xem chi tiết</a>
+                                <a id="link-detail-pro" data-link="" style="cursor: pointer;text-decoration: none; color: #E05543;font-weight: bold;">Xem chi tiết</a>
                             </div>
                         </div>
                     </div>
@@ -330,8 +277,5 @@
         </div>
     </div>
 </div>
-@endsection
-@section('detailproductjs')
-<script src="{{asset('/public/User/JS/detailproduct.js')}}"></script>
 @endsection
 
